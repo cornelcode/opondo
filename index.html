@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Michael Opondo — Writing Portfolio</title>
+  <meta name="description" content="Michael Opondo — Essays, Articles & Short fiction. Local-first writing portfolio with export/import and file attachments." />
+  <!-- Google font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* --------------------------
+       Design tokens & variables
+       -------------------------- */
+    :root{
+      --bg: #fbfbfb;
+      --surface: #ffffff;
+      --muted: #6a6a6a;
+      --text: #0b1220;
+      --muted-2: #8892a6;
+      --accent: #1f6feb;
+      --accent-2: #ff7a59;
+      --success: #16a34a;
+      --danger: #ff6b6b;
+      --glass: rgba(255,255,255,0.7);
+      --radius: 12px;
+      --shadow-sm: 0 6px 20px rgba(16,24,40,0.06);
+      --shadow-md: 0 12px 40px rgba(16,24,40,0.10);
+      --fw-regular: 400;
+      --fw-medium: 600;
+      --max-width: 1180px;
+    }
+
+    /* Dark theme */
+    html.dark {
+      --bg: #071024;
+      --surface: #0f1724;
+      --muted: #9aa7bd;
+      --text: #e6eef8;
+      --muted-2: #7f95af;
+      --glass: rgba(8,12,20,0.6);
+      --shadow-sm: 0 8px 30px rgba(2,6,23,0.6);
+      --shadow-md: 0 14px 50px rgba(2,6,23,0.7);
+    }
+
+    /* --------------------------
+       Base reset & typography
+       -------------------------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100%;
+      background: linear-gradient(180deg,var(--bg), #e9f2ff10);
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:40px;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{ text-decoration:underline }
+
+    /* --------------------------
+       Header
+       -------------------------- */
+    header{
+      position:sticky; top:0; z-index:120;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 20px;
+      background:var(--glass);
+      border-bottom:1px solid rgba(11,18,32,0.04);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:12px;
+      background: linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:700;font-size:18px;box-shadow:var(--shadow-sm);
+    }
+    .title{
+      display:flex;flex-direction:column;line-height:1;
+    }
+    .title h1{margin:0;font-size:18px;font-weight:700}
+    .title p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+    nav.controls{display:flex;gap:8px;align-items:center}
+    .btn{
+      background:var(--accent); color:#fff; border:0; padding:8px 12px;border-radius:10px;
+      font-weight:600; cursor:pointer; box-shadow:var(--shadow-sm)
+    }
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(31,111,235,0.12); box-shadow:none}
+    .icon-btn{display:inline-flex;align-items:center;gap:8px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* --------------------------
+       Layout
+       -------------------------- */
+    main.container{max-width:var(--max-width);margin:26px auto;padding:0 18px}
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:22px}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} .logo{width:48px;height:48px} }
+
+    .card{background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-sm)}
+    .panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .muted{color:var(--muted)}
+
+    /* --------------------------
+       Sidebar
+       -------------------------- */
+    .profile{display:flex;gap:12px;align-items:center}
+    .avatar{width:80px;height:80px;border-radius:12px;background:linear-gradient(135deg,#f6c0c0,#fef3c7);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;overflow:hidden}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .actions{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .search{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(11,18,32,0.06)}
+
+    /* --------------------------
+       Writings list
+       -------------------------- */
+    .writings-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+    .writing-card{
+      padding:14px;border-radius:10px;border:1px solid rgba(11,18,32,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,247,250,0.95));
+      display:flex;flex-direction:column;gap:8px;transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .writing-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+    .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .tag-badge{font-size:12px;padding:6px 8px;border-radius:8px;background:#f6f9ff;border:1px solid rgba(31,111,235,0.06)}
+
+    /* --------------------------
+       Editor
+       -------------------------- */
+    .editor{display:flex;flex-direction:column;gap:10px}
+    input[type="text"],textarea,select{
+      width:100%;padding:10px;border-radius:10px;border:1px solid rgba(11,18,32,0.06);font-size:15px;background:transparent;color:var(--text)
+    }
+    textarea{min-height:240px;resize:vertical}
+    .editor-footer{display:flex;align-items:center;gap:12px;justify-content:space-between}
+    .editor-meta{display:flex;gap:12px;align-items:center}
+    .count{font-size:13px;color:var(--muted)}
+    .file-link{display:inline-block;padding:8px 10px;border-radius:8px;border:1px solid rgba(11,18,32,0.06);background:#fafafa}
+
+    /* --------------------------
+       Achievements timeline
+       -------------------------- */
+    .timeline{display:flex;flex-direction:column;gap:10px}
+    .timeline-item{display:flex;gap:12px;align-items:flex-start}
+    .timeline-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 4px 16px rgba(31,111,235,0.18)}
+    .timeline-content{background:rgba(250,250,250,0.6);padding:10px;border-radius:8px;border:1px solid rgba(11,18,32,0.04)}
+
+    /* --------------------------
+       Modal & overlay
+       -------------------------- */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(8,12,20,0.45);z-index:160;opacity:0;pointer-events:none;transition:opacity .18s ease}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal .dialog{width:min(960px,96%);max-height:86vh;overflow:auto;background:var(--surface);border-radius:12px;padding:18px;box-shadow:var(--shadow-md)}
+    .modal .dialog iframe{width:100%;height:70vh;border:0;border-radius:8px}
+
+    /* --------------------------
+       Toast
+       -------------------------- */
+    .toast{position:fixed;right:20px;bottom:20px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;opacity:0;transform:translateY(10px);transition:all .35s ease;z-index:200}
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    /* --------------------------
+       Footer
+       -------------------------- */
+    footer{padding:22px;text-align:center;color:var(--muted);margin-top:20px}
+
+    /* Accessibility focus outlines */
+    :focus{outline:3px solid rgba(31,111,235,0.18);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand" role="banner">
+      <div class="logo" id="logo" aria-hidden="true">MO</div>
+      <div class="title">
+        <h1 id="siteName">Michael Opondo — Writing Portfolio</h1>
+        <p id="tagline" class="small">Essays • Articles • Short fiction</p>
+      </div>
+    </div>
+
+    <nav class="controls" role="navigation" aria-label="Main navigation">
+      <button id="homeBtn" class="btn ghost" aria-pressed="false" title="Home (H)">Home</button>
+      <button id="newBtn" class="btn" title="Create New (N)">New writing</button>
+      <button id="uploadBtn" class="btn ghost" title="Upload files (U)">Upload</button>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <button id="darkToggle" class="btn ghost" title="Toggle dark mode">🌓</button>
+        <button id="exportBtn" class="btn" title="Export all data">Export</button>
+        <button id="importBtn" class="btn ghost" title="Import data">Import</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none" aria-hidden="true">
+      </div>
+    </nav>
+  </header>
+
+  <main class="container" role="main">
+    <div class="grid">
+
+      <!-- Sidebar -->
+      <aside class="card" aria-labelledby="profile-label">
+        <div id="profile-label" class="panel-title"><strong>Profile</strong></div>
+        <div class="profile">
+          <div class="avatar" id="avatarHolder" aria-hidden="true"><span id="avatarInitials">MO</span><img id="avatarImg" src="" alt="Profile image" style="display:none"></div>
+          <div>
+            <div><strong id="ownerName" tabindex="0" title="Double-click to edit">Michael Opondo</strong></div>
+            <div id="ownerBio" class="small">Writer • Storyteller</div>
+            <div class="small muted" style="margin-top:6px">Double-click or press Enter to edit profile</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <label class="small" for="avatarInput">Profile image</label>
+          <input type="file" id="avatarInput" accept="image/*" aria-label="Upload profile image">
+          <div style="display:flex;gap:8px">
+            <button id="removeAvatar" class="btn ghost">Remove Image</button>
+            <button id="clearBtn" class="btn ghost" title="Clear all local data">Clear All</button>
+          </div>
+
+          <div style="margin-top:8px">
+            <label class="small" for="searchInput">Search writings</label>
+            <input id="searchInput" class="search" placeholder="Search title, tag or text..." aria-label="Search writings">
+          </div>
+
+          <div style="margin-top:8px">
+            <div class="panel-title"><strong>Quick backup</strong></div>
+            <div style="display:flex;gap:8px">
+              <button id="exportBackupBtn" class="btn">Download backup</button>
+              <button id="importLocalBtn" class="btn ghost">Import</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <section>
+
+        <!-- Home / list -->
+        <div id="homeView" class="card" aria-live="polite">
+          <div class="panel-title">
+            <div>
+              <strong>My Writings</strong>
+              <div class="small muted">Create, attach files, and manage your writings locally in the browser.</div>
+            </div>
+            <div>
+              <button id="addTextBtn" class="btn">+ New writing</button>
+            </div>
+          </div>
+
+          <div id="writingsGrid" class="writings-list" aria-label="List of writings">
+            <!-- JS generates content here -->
+          </div>
+        </div>
+
+        <!-- Editor -->
+        <div id="editorView" class="card" style="display:none;margin-top:18px">
+          <div class="panel-title">
+            <div>
+              <strong id="editorTitle">New writing</strong>
+              <div class="small muted" id="editorSubtitle">Autosave enabled • Draft stored locally</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button id="saveBtn" class="btn" title="Save (Ctrl+S)">Save</button>
+              <button id="previewMdBtn" class="btn ghost" title="Export as Markdown">Export MD</button>
+              <button id="cancelBtn" class="btn ghost">Cancel</button>
+            </div>
+          </div>
+
+          <div class="editor" role="form" aria-label="Writing editor">
+            <input id="titleInput" type="text" placeholder="Title" aria-label="Title">
+            <input id="tagsInput" type="text" placeholder="Tags (comma separated)" aria-label="Tags">
+            <textarea id="bodyInput" placeholder="Write your article here..." aria-label="Body"></textarea>
+
+            <div style="display:flex;gap:12px;align-items:center">
+              <input type="file" id="fileUploadInput" accept=".pdf,.doc,.docx" style="display:none">
+              <button id="attachFileBtn" class="btn ghost">Attach file</button>
+              <div class="editor-meta">
+                <div class="count" id="wordCount">Words: 0</div>
+                <div class="count" id="readingTime">Read: 0 min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload area -->
+        <div id="uploadView" class="card" style="display:none;margin-top:18px">
+          <div class="panel-title"><strong>Upload files</strong></div>
+          <div>
+            <input type="file" id="multiUpload" multiple accept=".pdf,.doc,.docx">
+            <div class="small muted" style="margin-top:8px">Accepted: PDF, DOC, DOCX. Large files may fail if browser storage is limited.</div>
+          </div>
+        </div>
+
+        <!-- Achievements -->
+        <div id="achieveView" class="card" style="display:none;margin-top:18px">
+          <div class="panel-title">
+            <div>
+              <strong>Achievements</strong>
+              <div class="small muted">Document awards, publications, and milestones.</div>
+            </div>
+            <div>
+              <button id="addAchBtn" class="btn">+ Add</button>
+            </div>
+          </div>
+
+          <div id="achList" class="timeline" aria-live="polite">
+            <!-- Timeline items -->
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Preview dialog">
+    <div class="dialog" role="document" id="modalPanel">
+      <!-- content injected by JS -->
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer>
+    Built with ♥ — static HTML/CSS/JS. Data stays in your browser unless exported.
+  </footer>
+
+  <script>
+    // ======================
+    // App constants & state
+    // ======================
+    const DB_KEY = 'michael_opondo_portfolio_v2';
+    const AUTOSAVE_KEY = 'michael_opondo_autosave_draft';
+    const DEFAULT = {
+      meta: {
+        name: 'Michael Opondo',
+        tagline: 'Writer • Storyteller',
+        email: '',
+        avatar: ''
+      },
+      writings: [], // {id, title, tags[], body, fileName, data (dataURL), created, updated}
+      achievements: [] // {id, title, when, note}
+    };
+
+    // In-memory state
+    let db = readDB();
+    let currentEditId = null; // if editing existing writing
+    let autosaveTimer = null;
+
+    // UI refs
+    const siteName = document.getElementById('siteName');
+    const tagline = document.getElementById('tagline');
+    const ownerName = document.getElementById('ownerName');
+    const ownerBio = document.getElementById('ownerBio');
+    const avatarImg = document.getElementById('avatarImg');
+    const avatarInitials = document.getElementById('avatarInitials');
+    const avatarHolder = document.getElementById('avatarHolder');
+
+    const homeView = document.getElementById('homeView');
+    const editorView = document.getElementById('editorView');
+    const uploadView = document.getElementById('uploadView');
+    const achieveView = document.getElementById('achieveView');
+
+    const writingsGrid = document.getElementById('writingsGrid');
+    const achList = document.getElementById('achList');
+
+    const titleInput = document.getElementById('titleInput');
+    const tagsInput = document.getElementById('tagsInput');
+    const bodyInput = document.getElementById('bodyInput');
+    const fileUploadInput = document.getElementById('fileUploadInput');
+
+    const searchInput = document.getElementById('searchInput');
+
+    const modal = document.getElementById('modal');
+    const modalPanel = document.getElementById('modalPanel');
+    const toastEl = document.getElementById('toast');
+
+    // ----------------------
+    // Initialization
+    // ----------------------
+    function init(){
+      applyMeta();
+      renderAll();
+      bindEvents();
+      restoreAutosaveIfPresent();
+      applyThemeFromPreference();
+    }
+
+    // ----------------------
+    // Storage helpers
+    // ----------------------
+    function readDB(){
+      try{
+        const raw = localStorage.getItem(DB_KEY);
+        if(!raw) return structuredClone(DEFAULT);
+        return JSON.parse(raw);
+      } catch(e){
+        console.warn('Failed to read DB, using default', e);
+        return structuredClone(DEFAULT);
+      }
+    }
+    function writeDB(newDb){
+      db = newDb;
+      localStorage.setItem(DB_KEY, JSON.stringify(db));
+    }
+    function toast(msg, timeout=2200){
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      setTimeout(()=>toastEl.classList.remove('show'), timeout);
+    }
+
+    // ----------------------
+    // Apply meta/profile
+    // ----------------------
+    function applyMeta(){
+      siteName.textContent = db.meta.name + ' — Writing Portfolio';
+      tagline.textContent = db.meta.tagline;
+      ownerName.textContent = db.meta.name;
+      ownerBio.textContent = db.meta.tagline;
+      document.getElementById('logo').textContent = db.meta.name.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase();
+      if(db.meta.avatar){
+        avatarImg.src = db.meta.avatar;
+        avatarImg.style.display = 'block';
+        avatarInitials.style.display = 'none';
+      } else {
+        avatarImg.style.display = 'none';
+        avatarInitials.style.display = 'block';
+        avatarInitials.textContent = db.meta.name.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase();
+      }
+    }
+
+    // ----------------------
+    // Renderers
+    // ----------------------
+    function renderAll(){
+      renderWritings();
+      renderAchievements();
+    }
+
+    function renderWritings(filter=''){
+      writingsGrid.innerHTML = '';
+      const q = (filter || '').toLowerCase().trim();
+      const list = db.writings.filter(w=>{
+        if(!q) return true;
+        return (w.title||'').toLowerCase().includes(q) || (w.tags||[]).join(' ').toLowerCase().includes(q) || (w.body||'').toLowerCase().includes(q);
+      }).slice().reverse();
+
+      if(list.length === 0){
+        writingsGrid.innerHTML = '<div class="small muted">No writings yet — create a new piece or upload files.</div>';
+        return;
+      }
+
+      list.forEach(w => {
+        const el = document.createElement('article');
+        el.className = 'writing-card';
+        const tagsHtml = (w.tags||[]).slice(0,4).map(t => `<span class="tag-badge">#${escapeHtml(t)}</span>`).join(' ');
+        const preview = (w.body||'').slice(0,200);
+        const date = new Date(w.created).toLocaleDateString();
+        const fileHtml = w.fileName ? `<div><span class="file-link" title="${escapeHtml(w.fileName)}">${escapeHtml(w.fileName)}</span></div>` : '';
+        el.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>${escapeHtml(w.title||'(untitled)')}</strong>
+            <div class="small muted">${date}</div>
+          </div>
+          <div class="meta" style="margin-top:6px">${tagsHtml}</div>
+          <div class="small" style="min-height:54px;margin-top:8px">${escapeHtml(preview)}${(w.body && w.body.length>200) ? '...' : ''}</div>
+          ${fileHtml}
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn ghost openBtn" data-id="${w.id}">Open</button>
+            <button class="btn" data-id="${w.id}" style="background:var(--danger)">Delete</button>
+            <button class="btn ghost" data-edit="${w.id}">Edit</button>
+          </div>
+        `;
+        // attach events
+        el.querySelector('.openBtn').addEventListener('click', ()=> openWriting(w.id));
+        el.querySelector('button[data-id]').addEventListener('click', (ev) => {
+          if(confirm('Delete this writing? This cannot be undone.')){
+            deleteWriting(ev.target.dataset.id);
+          }
+        });
+        el.querySelector('button[data-edit]').addEventListener('click', (ev)=> openEditorFor(ev.target.getAttribute('data-edit')));
+        writingsGrid.appendChild(el);
+      });
+    }
+
+    function renderAchievements(){
+      achList.innerHTML = '';
+      if(!db.achievements || db.achievements.length === 0){
+        achList.innerHTML = '<div class="small muted">No achievements yet.</div>';
+        return;
+      }
+      db.achievements.slice().reverse().forEach(a => {
+        const it = document.createElement('div');
+        it.className = 'timeline-item';
+        it.innerHTML = `
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <div class="timeline-content">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><strong>${escapeHtml(a.title)}</strong><div class="small muted">${escapeHtml(a.when||'')}</div></div>
+              <div><button class="btn ghost delAch">Delete</button></div>
+            </div>
+            ${a.note? `<div style="margin-top:8px" class="small">${escapeHtml(a.note)}</div>` : ''}
+          </div>
+        `;
+        it.querySelector('.delAch').addEventListener('click', ()=> {
+          if(confirm('Delete achievement?')){
+            db.achievements = db.achievements.filter(x=> x.id !== a.id);
+            writeDB(db);
+            renderAchievements();
+            toast('Deleted achievement');
+          }
+        });
+        achList.appendChild(it);
+      });
+    }
+
+    // ----------------------
+    // CRUD actions
+    // ----------------------
+    function openEditorFor(id){
+      const w = db.writings.find(x=>x.id===id);
+      if(!w) return;
+      currentEditId = id;
+      showView('editor');
+      document.getElementById('editorTitle').textContent = 'Edit writing';
+      titleInput.value = w.title || '';
+      tagsInput.value = (w.tags||[]).join(', ');
+      bodyInput.value = w.body || '';
+      updateCounts();
+    }
+
+    function deleteWriting(id){
+      db.writings = db.writings.filter(x => x.id !== id);
+      writeDB(db);
+      renderWritings(searchInput.value);
+      toast('Deleted writing');
+    }
+
+    function openWriting(id){
+      const w = db.writings.find(x => x.id === id);
+      if(!w) return;
+      modalPanel.innerHTML = '';
+      const title = document.createElement('h2');
+      title.textContent = w.title || '(untitled)';
+      modalPanel.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'small muted';
+      meta.style.marginTop = '6px';
+      meta.textContent = `Created: ${new Date(w.created).toLocaleString()}` + (w.updated? ` • Updated: ${new Date(w.updated).toLocaleString()}` : '');
+      modalPanel.appendChild(meta);
+
+      if(w.data && w.fileName){
+        const lower = (w.fileName||'').toLowerCase();
+        if(lower.endsWith('.pdf')){
+          const iframe = document.createElement('iframe');
+          iframe.src = w.data;
+          iframe.title = w.fileName;
+          iframe.style.marginTop = '12px';
+          modalPanel.appendChild(iframe);
+        } else {
+          const a = document.createElement('a');
+          a.href = w.data;
+          a.download = w.fileName;
+          a.className = 'file-link';
+          a.textContent = 'Download ' + w.fileName;
+          a.style.display = 'inline-block';
+          a.style.marginTop = '12px';
+          modalPanel.appendChild(a);
+        }
+      }
+
+      if(w.body){
+        const textNode = document.createElement('div');
+        textNode.style.marginTop = '14px';
+        textNode.style.whiteSpace = 'pre-wrap';
+        textNode.innerText = w.body;
+        modalPanel.appendChild(textNode);
+      }
+
+      // Actions
+      const actions = document.createElement('div');
+      actions.style.marginTop = '12px';
+      actions.style.display = 'flex';
+      actions.style.gap = '8px';
+      actions.innerHTML = `<button class="btn" id="downloadModal">Download</button><button class="btn ghost" id="closeModal">Close</button><button class="btn ghost" id="printModal">Print</button>`;
+      modalPanel.appendChild(actions);
+
+      document.getElementById('downloadModal').addEventListener('click', ()=> {
+        if(w.data){
+          const a = document.createElement('a');
+          a.href = w.data;
+          a.download = w.fileName || (w.title || 'writing');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        } else {
+          const blob = new Blob([w.body || ''], {type: 'text/plain'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = (w.title||'writing') + '.txt';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        }
+      });
+
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      document.getElementById('printModal').addEventListener('click', ()=> {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`<pre style="white-space:pre-wrap;font-family:Inter,Arial">${escapeHtml((w.title? w.title + "\\n\\n" : '') + (w.body||''))}</pre>`);
+        printWindow.document.close();
+        printWindow.print();
+      });
+
+      openModal();
+    }
+
+    // ----------------------
+    // Editor save & autosave
+    // ----------------------
+    document.getElementById('saveBtn').addEventListener('click', async ()=>{
+      await saveCurrentDraft();
+    });
+
+    async function saveCurrentDraft(){
+      const title = (titleInput.value || '').trim() || 'Untitled';
+      const tags = (tagsInput.value || '').split(',').map(s=>s.trim()).filter(Boolean);
+      const body = bodyInput.value || '';
+      const file = fileUploadInput.files[0];
+      let data = null, fileName = '';
+
+      if(file){
+        try{
+          data = await fileToDataURL(file);
+          fileName = file.name;
+        }catch(e){
+          console.error('File read failed', e);
+          alert('Failed to read attached file.');
+        }
+      }
+
+      if(currentEditId){
+        // update existing
+        const idx = db.writings.findIndex(x=>x.id===currentEditId);
+        if(idx >= 0){
+          db.writings[idx] = {
+            ...db.writings[idx],
+            title, tags, body,
+            ...(data? {data, fileName} : {}),
+            updated: Date.now()
+          };
+        }
+      }else{
+        // create new
+        db.writings.push({
+          id: genId(),
+          title, tags, body,
+          data, fileName,
+          created: Date.now()
+        });
+      }
+      writeDB(db);
+      clearEditor();
+      showView('home');
+      toast('Saved successfully');
+      renderWritings();
+      currentEditId = null;
+      localStorage.removeItem(AUTOSAVE_KEY);
+    }
+
+    function clearEditor(){
+      titleInput.value = '';
+      tagsInput.value = '';
+      bodyInput.value = '';
+      fileUploadInput.value = '';
+      updateCounts();
+    }
+
+    // Autosave every few seconds (debounced)
+    bodyInput.addEventListener('input', scheduleAutosave);
+    titleInput.addEventListener('input', scheduleAutosave);
+    tagsInput.addEventListener('input', scheduleAutosave);
+
+    function scheduleAutosave(){
+      if(autosaveTimer) clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(()=> {
+        const draft = {
+          title: titleInput.value,
+          tags: tagsInput.value,
+          body: bodyInput.value,
+          timestamp: Date.now(),
+          editId: currentEditId
+        };
+        localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(draft));
+        document.getElementById('editorSubtitle').textContent = 'Autosaved draft';
+      }, 800);
+      updateCounts();
+    }
+
+    function restoreAutosaveIfPresent(){
+      try{
+        const raw = localStorage.getItem(AUTOSAVE_KEY);
+        if(!raw) return;
+        const d = JSON.parse(raw);
+        if(!d) return;
+        // show a gentle prompt letting user restore
+        if(confirm('A draft was autosaved. Restore it?')){
+          currentEditId = d.editId || null;
+          showView('editor');
+          titleInput.value = d.title || '';
+          tagsInput.value = d.tags || '';
+          bodyInput.value = d.body || '';
+          document.getElementById('editorSubtitle').textContent = 'Restored autosave';
+          updateCounts();
+        } else {
+          localStorage.removeItem(AUTOSAVE_KEY);
+        }
+      }catch(e){ console.warn('No autosave to restore') }
+    }
+
+    // ----------------------
+    // Attach, multi-upload, avatar
+    // ----------------------
+    document.getElementById('attachFileBtn').addEventListener('click', ()=> fileUploadInput.click());
+    document.getElementById('multiUpload').addEventListener('change', async function(){
+      const files = Array.from(this.files);
+      if(files.length === 0) return;
+      for(const f of files){
+        try{
+          const data = await fileToDataURL(f);
+          db.writings.push({
+            id: genId(),
+            title: f.name,
+            tags: [],
+            body: '',
+            data,
+            fileName: f.name,
+            created: Date.now()
+          });
+        }catch(e){ console.error('file upload err', e) }
+      }
+      writeDB(db);
+      this.value = '';
+      renderWritings(searchInput.value);
+      toast('Files uploaded');
+    });
+
+    document.getElementById('avatarInput').addEventListener('change', async function(){
+      const f = this.files[0];
+      if(!f) return;
+      try{
+        const data = await fileToDataURL(f);
+        db.meta.avatar = data;
+        writeDB(db);
+        applyMeta();
+        toast('Profile image updated');
+      }catch(e){
+        alert('Failed to load image');
+      }
+    });
+
+    document.getElementById('removeAvatar').addEventListener('click', ()=>{
+      if(!db.meta.avatar) return;
+      if(confirm('Remove profile image?')){
+        db.meta.avatar = '';
+        writeDB(db);
+        applyMeta();
+        toast('Removed');
+      }
+    });
+
+    // ----------------------
+    // Achievements
+    // ----------------------
+    document.getElementById('addAchBtn').addEventListener('click', ()=>{
+      const title = prompt('Achievement title:');
+      if(!title) return;
+      const when = prompt('When (e.g. May 2024):');
+      const note = prompt('Short note or details (optional):');
+      db.achievements.push({ id: genId(), title, when, note });
+      writeDB(db);
+      renderAchievements();
+      toast('Achievement added');
+    });
+
+    // ----------------------
+    // Export / Import
+    // ----------------------
+    document.getElementById('exportBtn').addEventListener('click', ()=> exportBackup());
+    document.getElementById('exportBackupBtn').addEventListener('click', ()=> exportBackup());
+    document.getElementById('importBtn').addEventListener('click', ()=> document.getElementById('importFile').click());
+    document.getElementById('importLocalBtn').addEventListener('click', ()=> document.getElementById('importFile').click());
+
+    document.getElementById('importFile').addEventListener('change', function(){
+      const f = this.files[0];
+      if(!f) return;
+      const fr = new FileReader();
+      fr.onload = ()=> {
+        try{
+          const parsed = JSON.parse(fr.result);
+          if(!confirm('Importing will replace your current local data. Proceed?')) return;
+          db = parsed;
+          writeDB(db);
+          applyMeta();
+          renderAll();
+          toast('Imported successfully');
+        }catch(e){
+          alert('Invalid JSON file.');
+        }
+      };
+      fr.readAsText(f);
+      this.value = '';
+    });
+
+    function exportBackup(){
+      const blob = new Blob([JSON.stringify(db, null, 2)], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'michael_opondo_portfolio_backup.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast('Backup downloaded');
+    }
+
+    // ----------------------
+    // Utilities & small features
+    // ----------------------
+    function genId(){ return Math.random().toString(36).slice(2,9) }
+
+    function escapeHtml(s=''){ return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+    function fileToDataURL(file){
+      return new Promise((resolve,reject)=>{
+        const fr = new FileReader();
+        fr.onload = e => resolve(e.target.result);
+        fr.onerror = reject;
+        fr.readAsDataURL(file);
+      });
+    }
+
+    // Word count & reading time
+    function updateCounts(){
+      const text = bodyInput.value || '';
+      const words = countWords(text);
+      document.getElementById('wordCount').textContent = `Words: ${words}`;
+      const readMins = Math.max(1, Math.round(words / 200)); // avg 200 wpm
+      document.getElementById('readingTime').textContent = `Read: ${readMins} min`;
+    }
+
+    function countWords(str){
+      return (str.trim().match(/\S+/g) || []).length;
+    }
+
+    // Export single writing as Markdown
+    document.getElementById('previewMdBtn').addEventListener('click', ()=>{
+      const md = toMarkdown({
+        title: titleInput.value || '',
+        tags: (tagsInput.value||'').split(',').map(s=>s.trim()).filter(Boolean),
+        body: bodyInput.value || ''
+      });
+      const blob = new Blob([md], {type: 'text/markdown'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (titleInput.value ? slugify(titleInput.value) : 'writing') + '.md';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast('Exported as Markdown');
+    });
+
+    function toMarkdown({title, tags, body}){
+      let md = '';
+      if(title) md += `# ${title}\n\n`;
+      if(tags && tags.length) md += tags.map(t=>`#${t}`).join(' ') + '\n\n';
+      md += body || '';
+      return md;
+    }
+    function slugify(s=''){ return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') }
+
+    // ----------------------
+    // Modal helpers
+    // ----------------------
+    function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); }
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); modalPanel.innerHTML = ''; }
+    modal.addEventListener('click', (e)=> { if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeModal(); });
+
+    // ----------------------
+    // Views & nav
+    // ----------------------
+    function showView(v){
+      homeView.style.display = 'none';
+      editorView.style.display = 'none';
+      uploadView.style.display = 'none';
+      achieveView.style.display = 'none';
+      document.getElementById('homeBtn').setAttribute('aria-pressed','false');
+
+      if(v === 'home'){ homeView.style.display = 'block'; document.getElementById('homeBtn').setAttribute('aria-pressed','true') }
+      if(v === 'editor'){ editorView.style.display = 'block' }
+      if(v === 'upload'){ uploadView.style.display = 'block' }
+      if(v === 'achieve'){ achieveView.style.display = 'block' }
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // ----------------------
+    // Search, keyboard shortcuts, small bindings
+    // ----------------------
+    function bindEvents(){
+      // nav
+      document.getElementById('addTextBtn').addEventListener('click', ()=>{
+        currentEditId = null;
+        document.getElementById('editorTitle').textContent = 'New writing';
+        clearEditor();
+        showView('editor');
+      });
+      document.getElementById('homeBtn').addEventListener('click', ()=> showView('home'));
+      document.getElementById('newBtn').addEventListener('click', ()=> {
+        currentEditId = null;
+        clearEditor();
+        showView('editor');
+      });
+      document.getElementById('uploadBtn').addEventListener('click', ()=> showView('upload'));
+      document.getElementById('importBtn').addEventListener('click', ()=> document.getElementById('importFile').click());
+
+      // search
+      searchInput.addEventListener('input', (e)=> renderWritings(e.target.value));
+
+      // cancel
+      document.getElementById('cancelBtn').addEventListener('click', ()=>{
+        if(confirm('Discard changes and return to home?')){
+          clearEditor();
+          showView('home');
+          currentEditId = null;
+        }
+      });
+
+      // editor keyboard shortcuts: Ctrl+S to save, Ctrl+Enter to save and open
+      window.addEventListener('keydown', (e)=> {
+        if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's'){
+          e.preventDefault();
+          saveCurrentDraft();
+        }
+        if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+          e.preventDefault();
+          saveCurrentDraft();
+        }
+        // quick nav H / N / U
+        if(!e.metaKey && !e.ctrlKey && !e.altKey){
+          if(e.key.toLowerCase() === 'h'){ showView('home') }
+          if(e.key.toLowerCase() === 'n'){ currentEditId = null; clearEditor(); showView('editor') }
+          if(e.key.toLowerCase() === 'u'){ showView('upload') }
+        }
+      });
+
+      // profile editing (double click or Enter)
+      ownerName.addEventListener('dblclick', editProfile);
+      ownerName.addEventListener('keydown', (e)=> { if(e.key === 'Enter') editProfile(); });
+
+      // file inputs & multi upload already bound earlier
+
+      // clear all
+      document.getElementById('clearBtn').addEventListener('click', ()=>{
+        if(confirm('Clear all local data? This cannot be undone.')){
+          localStorage.removeItem(DB_KEY);
+          localStorage.removeItem(AUTOSAVE_KEY);
+          db = structuredClone(DEFAULT);
+          writeDB(db);
+          applyMeta();
+          renderAll();
+          toast('All data cleared');
+        }
+      });
+
+      // export/import buttons handled earlier
+
+      // theme
+      document.getElementById('darkToggle').addEventListener('click', toggleTheme);
+
+      // search small enhancement: Enter opens first result
+      searchInput.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){
+          const first = writingsGrid.querySelector('.writing-card .openBtn');
+          if(first) first.click();
+        }
+      });
+
+      // update counts when visible
+      bodyInput.addEventListener('input', updateCounts);
+      updateCounts();
+    }
+
+    // ----------------------
+    // Profile editing
+    // ----------------------
+    function editProfile(){
+      const name = prompt('Owner full name:', db.meta.name || 'Michael Opondo');
+      if(!name) return;
+      const taglineVal = prompt('Short tagline:', db.meta.tagline || 'Writer • Storyteller');
+      db.meta.name = name;
+      db.meta.tagline = taglineVal || db.meta.tagline;
+      writeDB(db);
+      applyMeta();
+      toast('Profile updated');
+    }
+
+    // ----------------------
+    // Theme handling
+    // ----------------------
+    function applyThemeFromPreference(){
+      const t = localStorage.getItem('theme');
+      if(t === 'dark') document.documentElement.classList.add('dark');
+      else if(t === 'light') document.documentElement.classList.remove('dark');
+      else { // follow system
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if(prefersDark) document.documentElement.classList.add('dark');
+      }
+    }
+    function toggleTheme(){
+      const isDark = document.documentElement.classList.toggle('dark');
+      if(isDark) localStorage.setItem('theme','dark'); else localStorage.setItem('theme','light');
+      toast(isDark ? 'Dark mode' : 'Light mode');
+    }
+
+    // ----------------------
+    // Misc helpers
+    // ----------------------
+    function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); }
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); modalPanel.innerHTML = ''; }
+
+    // ----------------------
+    // Utility: convert to markdown (used earlier)
+    // ----------------------
+    function toMarkdownSingle(w){
+      let md = '';
+      if(w.title) md += `# ${w.title}\n\n`;
+      if(w.tags && w.tags.length) md += w.tags.map(t=>`#${t}`).join(' ') + '\n\n';
+      md += w.body || '';
+      return md;
+    }
+
+    // ----------------------
+    // Boot
+    // ----------------------
+    init();
+  </script>
+</body>
+</html>
